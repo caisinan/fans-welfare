@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fans.mapper.ShakeMapper">
+  <resultMap id="BaseResultMap" type="com.fans.pojo.Shake">
+    <id column="playerId" jdbcType="BIGINT" property="playerid" />
+    <result column="openId" jdbcType="VARCHAR" property="openid" />
+    <result column="playDate" jdbcType="VARCHAR" property="playdate" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="isWin" jdbcType="BIT" property="iswin" />
+    <result column="winCount" jdbcType="INTEGER" property="wincount" />
+    <result column="isShare" jdbcType="BIT" property="isshare" />
+    <result column="prize" jdbcType="VARCHAR" property="prize" />
+    <result column="totalPoints" jdbcType="INTEGER" property="totalpoints" />
+    <result column="cardId" jdbcType="BIGINT" property="cardid" />
+    <result column="addTime" jdbcType="TIMESTAMP" property="addtime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    playerId, openId, playDate, count, isWin, winCount, isShare, prize, totalPoints, 
+    cardId, addTime
+  </sql>
+  <select id="selectByExample" parameterType="com.fans.pojo.ShakeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shake
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shake
+    where playerId = #{playerid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from shake
+    where playerId = #{playerid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fans.pojo.ShakeExample">
+    delete from shake
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fans.pojo.Shake">
+    insert into shake (playerId, openId, playDate, 
+      count, isWin, winCount, 
+      isShare, prize, totalPoints, 
+      cardId, addTime)
+    values (#{playerid,jdbcType=BIGINT}, #{openid,jdbcType=VARCHAR}, #{playdate,jdbcType=VARCHAR}, 
+      #{count,jdbcType=INTEGER}, #{iswin,jdbcType=BIT}, #{wincount,jdbcType=INTEGER}, 
+      #{isshare,jdbcType=BIT}, #{prize,jdbcType=VARCHAR}, #{totalpoints,jdbcType=INTEGER}, 
+      #{cardid,jdbcType=BIGINT}, #{addtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fans.pojo.Shake">
+    insert into shake
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="playerid != null">
+        playerId,
+      </if>
+      <if test="openid != null">
+        openId,
+      </if>
+      <if test="playdate != null">
+        playDate,
+      </if>
+      <if test="count != null">
+        count,
+      </if>
+      <if test="iswin != null">
+        isWin,
+      </if>
+      <if test="wincount != null">
+        winCount,
+      </if>
+      <if test="isshare != null">
+        isShare,
+      </if>
+      <if test="prize != null">
+        prize,
+      </if>
+      <if test="totalpoints != null">
+        totalPoints,
+      </if>
+      <if test="cardid != null">
+        cardId,
+      </if>
+      <if test="addtime != null">
+        addTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="playerid != null">
+        #{playerid,jdbcType=BIGINT},
+      </if>
+      <if test="openid != null">
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="playdate != null">
+        #{playdate,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="iswin != null">
+        #{iswin,jdbcType=BIT},
+      </if>
+      <if test="wincount != null">
+        #{wincount,jdbcType=INTEGER},
+      </if>
+      <if test="isshare != null">
+        #{isshare,jdbcType=BIT},
+      </if>
+      <if test="prize != null">
+        #{prize,jdbcType=VARCHAR},
+      </if>
+      <if test="totalpoints != null">
+        #{totalpoints,jdbcType=INTEGER},
+      </if>
+      <if test="cardid != null">
+        #{cardid,jdbcType=BIGINT},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fans.pojo.ShakeExample" resultType="java.lang.Long">
+    select count(*) from shake
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update shake
+    <set>
+      <if test="record.playerid != null">
+        playerId = #{record.playerid,jdbcType=BIGINT},
+      </if>
+      <if test="record.openid != null">
+        openId = #{record.openid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.playdate != null">
+        playDate = #{record.playdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.count != null">
+        count = #{record.count,jdbcType=INTEGER},
+      </if>
+      <if test="record.iswin != null">
+        isWin = #{record.iswin,jdbcType=BIT},
+      </if>
+      <if test="record.wincount != null">
+        winCount = #{record.wincount,jdbcType=INTEGER},
+      </if>
+      <if test="record.isshare != null">
+        isShare = #{record.isshare,jdbcType=BIT},
+      </if>
+      <if test="record.prize != null">
+        prize = #{record.prize,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalpoints != null">
+        totalPoints = #{record.totalpoints,jdbcType=INTEGER},
+      </if>
+      <if test="record.cardid != null">
+        cardId = #{record.cardid,jdbcType=BIGINT},
+      </if>
+      <if test="record.addtime != null">
+        addTime = #{record.addtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update shake
+    set playerId = #{record.playerid,jdbcType=BIGINT},
+      openId = #{record.openid,jdbcType=VARCHAR},
+      playDate = #{record.playdate,jdbcType=VARCHAR},
+      count = #{record.count,jdbcType=INTEGER},
+      isWin = #{record.iswin,jdbcType=BIT},
+      winCount = #{record.wincount,jdbcType=INTEGER},
+      isShare = #{record.isshare,jdbcType=BIT},
+      prize = #{record.prize,jdbcType=VARCHAR},
+      totalPoints = #{record.totalpoints,jdbcType=INTEGER},
+      cardId = #{record.cardid,jdbcType=BIGINT},
+      addTime = #{record.addtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fans.pojo.Shake">
+    update shake
+    <set>
+      <if test="openid != null">
+        openId = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="playdate != null">
+        playDate = #{playdate,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null">
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="iswin != null">
+        isWin = #{iswin,jdbcType=BIT},
+      </if>
+      <if test="wincount != null">
+        winCount = #{wincount,jdbcType=INTEGER},
+      </if>
+      <if test="isshare != null">
+        isShare = #{isshare,jdbcType=BIT},
+      </if>
+      <if test="prize != null">
+        prize = #{prize,jdbcType=VARCHAR},
+      </if>
+      <if test="totalpoints != null">
+        totalPoints = #{totalpoints,jdbcType=INTEGER},
+      </if>
+      <if test="cardid != null">
+        cardId = #{cardid,jdbcType=BIGINT},
+      </if>
+      <if test="addtime != null">
+        addTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where playerId = #{playerid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fans.pojo.Shake">
+    update shake
+    set openId = #{openid,jdbcType=VARCHAR},
+      playDate = #{playdate,jdbcType=VARCHAR},
+      count = #{count,jdbcType=INTEGER},
+      isWin = #{iswin,jdbcType=BIT},
+      winCount = #{wincount,jdbcType=INTEGER},
+      isShare = #{isshare,jdbcType=BIT},
+      prize = #{prize,jdbcType=VARCHAR},
+      totalPoints = #{totalpoints,jdbcType=INTEGER},
+      cardId = #{cardid,jdbcType=BIGINT},
+      addTime = #{addtime,jdbcType=TIMESTAMP}
+    where playerId = #{playerid,jdbcType=BIGINT}
+  </update>
+  <resultMap id="BaseResultMap" type="com.fans.pojo.Shake">
+    <id column="playerId" jdbcType="BIGINT" property="playerid" />
+    <result column="openId" jdbcType="VARCHAR" property="openid" />
+    <result column="playDate" jdbcType="VARCHAR" property="playdate" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="isWin" jdbcType="BIT" property="iswin" />
+    <result column="winCount" jdbcType="INTEGER" property="wincount" />
+    <result column="isShare" jdbcType="BIT" property="isshare" />
+    <result column="prize" jdbcType="VARCHAR" property="prize" />
+    <result column="totalPoints" jdbcType="INTEGER" property="totalpoints" />
+    <result column="cardId" jdbcType="BIGINT" property="cardid" />
+    <result column="addTime" jdbcType="TIMESTAMP" property="addtime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    playerId, openId, playDate, count, isWin, winCount, isShare, prize, totalPoints, 
+    cardId, addTime
+  </sql>
+  <select id="selectByExample" parameterType="com.fans.pojo.ShakeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shake
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shake
+    where playerId = #{playerid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from shake
+    where playerId = #{playerid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fans.pojo.ShakeExample">
+    delete from shake
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fans.pojo.Shake">
+    insert into shake (playerId, openId, playDate, 
+      count, isWin, winCount, 
+      isShare, prize, totalPoints, 
+      cardId, addTime)
+    values (#{playerid,jdbcType=BIGINT}, #{openid,jdbcType=VARCHAR}, #{playdate,jdbcType=VARCHAR}, 
+      #{count,jdbcType=INTEGER}, #{iswin,jdbcType=BIT}, #{wincount,jdbcType=INTEGER}, 
+      #{isshare,jdbcType=BIT}, #{prize,jdbcType=VARCHAR}, #{totalpoints,jdbcType=INTEGER}, 
+      #{cardid,jdbcType=BIGINT}, #{addtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fans.pojo.Shake">
+    insert into shake
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="playerid != null">
+        playerId,
+      </if>
+      <if test="openid != null">
+        openId,
+      </if>
+      <if test="playdate != null">
+        playDate,
+      </if>
+      <if test="count != null">
+        count,
+      </if>
+      <if test="iswin != null">
+        isWin,
+      </if>
+      <if test="wincount != null">
+        winCount,
+      </if>
+      <if test="isshare != null">
+        isShare,
+      </if>
+      <if test="prize != null">
+        prize,
+      </if>
+      <if test="totalpoints != null">
+        totalPoints,
+      </if>
+      <if test="cardid != null">
+        cardId,
+      </if>
+      <if test="addtime != null">
+        addTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="playerid != null">
+        #{playerid,jdbcType=BIGINT},
+      </if>
+      <if test="openid != null">
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="playdate != null">
+        #{playdate,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="iswin != null">
+        #{iswin,jdbcType=BIT},
+      </if>
+      <if test="wincount != null">
+        #{wincount,jdbcType=INTEGER},
+      </if>
+      <if test="isshare != null">
+        #{isshare,jdbcType=BIT},
+      </if>
+      <if test="prize != null">
+        #{prize,jdbcType=VARCHAR},
+      </if>
+      <if test="totalpoints != null">
+        #{totalpoints,jdbcType=INTEGER},
+      </if>
+      <if test="cardid != null">
+        #{cardid,jdbcType=BIGINT},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fans.pojo.ShakeExample" resultType="java.lang.Long">
+    select count(*) from shake
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update shake
+    <set>
+      <if test="record.playerid != null">
+        playerId = #{record.playerid,jdbcType=BIGINT},
+      </if>
+      <if test="record.openid != null">
+        openId = #{record.openid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.playdate != null">
+        playDate = #{record.playdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.count != null">
+        count = #{record.count,jdbcType=INTEGER},
+      </if>
+      <if test="record.iswin != null">
+        isWin = #{record.iswin,jdbcType=BIT},
+      </if>
+      <if test="record.wincount != null">
+        winCount = #{record.wincount,jdbcType=INTEGER},
+      </if>
+      <if test="record.isshare != null">
+        isShare = #{record.isshare,jdbcType=BIT},
+      </if>
+      <if test="record.prize != null">
+        prize = #{record.prize,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalpoints != null">
+        totalPoints = #{record.totalpoints,jdbcType=INTEGER},
+      </if>
+      <if test="record.cardid != null">
+        cardId = #{record.cardid,jdbcType=BIGINT},
+      </if>
+      <if test="record.addtime != null">
+        addTime = #{record.addtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update shake
+    set playerId = #{record.playerid,jdbcType=BIGINT},
+      openId = #{record.openid,jdbcType=VARCHAR},
+      playDate = #{record.playdate,jdbcType=VARCHAR},
+      count = #{record.count,jdbcType=INTEGER},
+      isWin = #{record.iswin,jdbcType=BIT},
+      winCount = #{record.wincount,jdbcType=INTEGER},
+      isShare = #{record.isshare,jdbcType=BIT},
+      prize = #{record.prize,jdbcType=VARCHAR},
+      totalPoints = #{record.totalpoints,jdbcType=INTEGER},
+      cardId = #{record.cardid,jdbcType=BIGINT},
+      addTime = #{record.addtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fans.pojo.Shake">
+    update shake
+    <set>
+      <if test="openid != null">
+        openId = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="playdate != null">
+        playDate = #{playdate,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null">
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="iswin != null">
+        isWin = #{iswin,jdbcType=BIT},
+      </if>
+      <if test="wincount != null">
+        winCount = #{wincount,jdbcType=INTEGER},
+      </if>
+      <if test="isshare != null">
+        isShare = #{isshare,jdbcType=BIT},
+      </if>
+      <if test="prize != null">
+        prize = #{prize,jdbcType=VARCHAR},
+      </if>
+      <if test="totalpoints != null">
+        totalPoints = #{totalpoints,jdbcType=INTEGER},
+      </if>
+      <if test="cardid != null">
+        cardId = #{cardid,jdbcType=BIGINT},
+      </if>
+      <if test="addtime != null">
+        addTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where playerId = #{playerid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fans.pojo.Shake">
+    update shake
+    set openId = #{openid,jdbcType=VARCHAR},
+      playDate = #{playdate,jdbcType=VARCHAR},
+      count = #{count,jdbcType=INTEGER},
+      isWin = #{iswin,jdbcType=BIT},
+      winCount = #{wincount,jdbcType=INTEGER},
+      isShare = #{isshare,jdbcType=BIT},
+      prize = #{prize,jdbcType=VARCHAR},
+      totalPoints = #{totalpoints,jdbcType=INTEGER},
+      cardId = #{cardid,jdbcType=BIGINT},
+      addTime = #{addtime,jdbcType=TIMESTAMP}
+    where playerId = #{playerid,jdbcType=BIGINT}
+  </update>
+</mapper>

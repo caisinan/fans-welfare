@@ -1,0 +1,956 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fans.mapper.MpUserinfoMapper">
+  <resultMap id="BaseResultMap" type="com.fans.pojo.MpUserinfo">
+    <id column="UserId" jdbcType="BIGINT" property="userid" />
+    <result column="UserName" jdbcType="VARCHAR" property="username" />
+    <result column="RealName" jdbcType="VARCHAR" property="realname" />
+    <result column="Avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="NickName" jdbcType="VARCHAR" property="nickname" />
+    <result column="headimgurl" jdbcType="VARCHAR" property="headimgurl" />
+    <result column="Email" jdbcType="VARCHAR" property="email" />
+    <result column="PhoneNumber" jdbcType="VARCHAR" property="phonenumber" />
+    <result column="Sex" jdbcType="SMALLINT" property="sex" />
+    <result column="Profession" jdbcType="VARCHAR" property="profession" />
+    <result column="JobTitle" jdbcType="VARCHAR" property="jobtitle" />
+    <result column="WorkUnit" jdbcType="VARCHAR" property="workunit" />
+    <result column="Content" jdbcType="VARCHAR" property="content" />
+    <result column="Country" jdbcType="VARCHAR" property="country" />
+    <result column="Province" jdbcType="VARCHAR" property="province" />
+    <result column="City" jdbcType="VARCHAR" property="city" />
+    <result column="WxOpenId" jdbcType="VARCHAR" property="wxopenid" />
+    <result column="subscribe" jdbcType="VARCHAR" property="subscribe" />
+    <result column="subscribe_time" jdbcType="VARCHAR" property="subscribeTime" />
+    <result column="IsDel" jdbcType="SMALLINT" property="isdel" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    UserId, UserName, RealName, Avatar, NickName, headimgurl, Email, PhoneNumber, Sex, 
+    Profession, JobTitle, WorkUnit, Content, Country, Province, City, WxOpenId, subscribe, 
+    subscribe_time, IsDel, UpdateTime, AddTime
+  </sql>
+  <select id="selectByExample" parameterType="com.fans.pojo.MpUserinfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mp_userinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mp_userinfo
+    where UserId = #{userid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from mp_userinfo
+    where UserId = #{userid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fans.pojo.MpUserinfoExample">
+    delete from mp_userinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fans.pojo.MpUserinfo">
+    insert into mp_userinfo (UserId, UserName, RealName, 
+      Avatar, NickName, headimgurl, 
+      Email, PhoneNumber, Sex, 
+      Profession, JobTitle, WorkUnit, 
+      Content, Country, Province, 
+      City, WxOpenId, subscribe, 
+      subscribe_time, IsDel, UpdateTime, 
+      AddTime)
+    values (#{userid,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, 
+      #{avatar,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{headimgurl,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{phonenumber,jdbcType=VARCHAR}, #{sex,jdbcType=SMALLINT}, 
+      #{profession,jdbcType=VARCHAR}, #{jobtitle,jdbcType=VARCHAR}, #{workunit,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{wxopenid,jdbcType=VARCHAR}, #{subscribe,jdbcType=VARCHAR}, 
+      #{subscribeTime,jdbcType=VARCHAR}, #{isdel,jdbcType=SMALLINT}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{addtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fans.pojo.MpUserinfo">
+    insert into mp_userinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        UserId,
+      </if>
+      <if test="username != null">
+        UserName,
+      </if>
+      <if test="realname != null">
+        RealName,
+      </if>
+      <if test="avatar != null">
+        Avatar,
+      </if>
+      <if test="nickname != null">
+        NickName,
+      </if>
+      <if test="headimgurl != null">
+        headimgurl,
+      </if>
+      <if test="email != null">
+        Email,
+      </if>
+      <if test="phonenumber != null">
+        PhoneNumber,
+      </if>
+      <if test="sex != null">
+        Sex,
+      </if>
+      <if test="profession != null">
+        Profession,
+      </if>
+      <if test="jobtitle != null">
+        JobTitle,
+      </if>
+      <if test="workunit != null">
+        WorkUnit,
+      </if>
+      <if test="content != null">
+        Content,
+      </if>
+      <if test="country != null">
+        Country,
+      </if>
+      <if test="province != null">
+        Province,
+      </if>
+      <if test="city != null">
+        City,
+      </if>
+      <if test="wxopenid != null">
+        WxOpenId,
+      </if>
+      <if test="subscribe != null">
+        subscribe,
+      </if>
+      <if test="subscribeTime != null">
+        subscribe_time,
+      </if>
+      <if test="isdel != null">
+        IsDel,
+      </if>
+      <if test="updatetime != null">
+        UpdateTime,
+      </if>
+      <if test="addtime != null">
+        AddTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null">
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null">
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null">
+        #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenumber != null">
+        #{phonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=SMALLINT},
+      </if>
+      <if test="profession != null">
+        #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="jobtitle != null">
+        #{jobtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="workunit != null">
+        #{workunit,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="wxopenid != null">
+        #{wxopenid,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribe != null">
+        #{subscribe,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeTime != null">
+        #{subscribeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isdel != null">
+        #{isdel,jdbcType=SMALLINT},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fans.pojo.MpUserinfoExample" resultType="java.lang.Long">
+    select count(*) from mp_userinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update mp_userinfo
+    <set>
+      <if test="record.userid != null">
+        UserId = #{record.userid,jdbcType=BIGINT},
+      </if>
+      <if test="record.username != null">
+        UserName = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realname != null">
+        RealName = #{record.realname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.avatar != null">
+        Avatar = #{record.avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickname != null">
+        NickName = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headimgurl != null">
+        headimgurl = #{record.headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        Email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phonenumber != null">
+        PhoneNumber = #{record.phonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null">
+        Sex = #{record.sex,jdbcType=SMALLINT},
+      </if>
+      <if test="record.profession != null">
+        Profession = #{record.profession,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobtitle != null">
+        JobTitle = #{record.jobtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workunit != null">
+        WorkUnit = #{record.workunit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null">
+        Content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.country != null">
+        Country = #{record.country,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null">
+        Province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null">
+        City = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxopenid != null">
+        WxOpenId = #{record.wxopenid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subscribe != null">
+        subscribe = #{record.subscribe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subscribeTime != null">
+        subscribe_time = #{record.subscribeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isdel != null">
+        IsDel = #{record.isdel,jdbcType=SMALLINT},
+      </if>
+      <if test="record.updatetime != null">
+        UpdateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.addtime != null">
+        AddTime = #{record.addtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update mp_userinfo
+    set UserId = #{record.userid,jdbcType=BIGINT},
+      UserName = #{record.username,jdbcType=VARCHAR},
+      RealName = #{record.realname,jdbcType=VARCHAR},
+      Avatar = #{record.avatar,jdbcType=VARCHAR},
+      NickName = #{record.nickname,jdbcType=VARCHAR},
+      headimgurl = #{record.headimgurl,jdbcType=VARCHAR},
+      Email = #{record.email,jdbcType=VARCHAR},
+      PhoneNumber = #{record.phonenumber,jdbcType=VARCHAR},
+      Sex = #{record.sex,jdbcType=SMALLINT},
+      Profession = #{record.profession,jdbcType=VARCHAR},
+      JobTitle = #{record.jobtitle,jdbcType=VARCHAR},
+      WorkUnit = #{record.workunit,jdbcType=VARCHAR},
+      Content = #{record.content,jdbcType=VARCHAR},
+      Country = #{record.country,jdbcType=VARCHAR},
+      Province = #{record.province,jdbcType=VARCHAR},
+      City = #{record.city,jdbcType=VARCHAR},
+      WxOpenId = #{record.wxopenid,jdbcType=VARCHAR},
+      subscribe = #{record.subscribe,jdbcType=VARCHAR},
+      subscribe_time = #{record.subscribeTime,jdbcType=VARCHAR},
+      IsDel = #{record.isdel,jdbcType=SMALLINT},
+      UpdateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      AddTime = #{record.addtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fans.pojo.MpUserinfo">
+    update mp_userinfo
+    <set>
+      <if test="username != null">
+        UserName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null">
+        RealName = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null">
+        Avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        NickName = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null">
+        headimgurl = #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        Email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenumber != null">
+        PhoneNumber = #{phonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        Sex = #{sex,jdbcType=SMALLINT},
+      </if>
+      <if test="profession != null">
+        Profession = #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="jobtitle != null">
+        JobTitle = #{jobtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="workunit != null">
+        WorkUnit = #{workunit,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        Content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        Country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        Province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        City = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="wxopenid != null">
+        WxOpenId = #{wxopenid,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribe != null">
+        subscribe = #{subscribe,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeTime != null">
+        subscribe_time = #{subscribeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isdel != null">
+        IsDel = #{isdel,jdbcType=SMALLINT},
+      </if>
+      <if test="updatetime != null">
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addtime != null">
+        AddTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where UserId = #{userid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fans.pojo.MpUserinfo">
+    update mp_userinfo
+    set UserName = #{username,jdbcType=VARCHAR},
+      RealName = #{realname,jdbcType=VARCHAR},
+      Avatar = #{avatar,jdbcType=VARCHAR},
+      NickName = #{nickname,jdbcType=VARCHAR},
+      headimgurl = #{headimgurl,jdbcType=VARCHAR},
+      Email = #{email,jdbcType=VARCHAR},
+      PhoneNumber = #{phonenumber,jdbcType=VARCHAR},
+      Sex = #{sex,jdbcType=SMALLINT},
+      Profession = #{profession,jdbcType=VARCHAR},
+      JobTitle = #{jobtitle,jdbcType=VARCHAR},
+      WorkUnit = #{workunit,jdbcType=VARCHAR},
+      Content = #{content,jdbcType=VARCHAR},
+      Country = #{country,jdbcType=VARCHAR},
+      Province = #{province,jdbcType=VARCHAR},
+      City = #{city,jdbcType=VARCHAR},
+      WxOpenId = #{wxopenid,jdbcType=VARCHAR},
+      subscribe = #{subscribe,jdbcType=VARCHAR},
+      subscribe_time = #{subscribeTime,jdbcType=VARCHAR},
+      IsDel = #{isdel,jdbcType=SMALLINT},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      AddTime = #{addtime,jdbcType=TIMESTAMP}
+    where UserId = #{userid,jdbcType=BIGINT}
+  </update>
+  <resultMap id="BaseResultMap" type="com.fans.pojo.MpUserinfo">
+    <id column="UserId" jdbcType="BIGINT" property="userid" />
+    <result column="UserName" jdbcType="VARCHAR" property="username" />
+    <result column="RealName" jdbcType="VARCHAR" property="realname" />
+    <result column="Avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="NickName" jdbcType="VARCHAR" property="nickname" />
+    <result column="headimgurl" jdbcType="VARCHAR" property="headimgurl" />
+    <result column="Email" jdbcType="VARCHAR" property="email" />
+    <result column="PhoneNumber" jdbcType="VARCHAR" property="phonenumber" />
+    <result column="Sex" jdbcType="SMALLINT" property="sex" />
+    <result column="Profession" jdbcType="VARCHAR" property="profession" />
+    <result column="JobTitle" jdbcType="VARCHAR" property="jobtitle" />
+    <result column="WorkUnit" jdbcType="VARCHAR" property="workunit" />
+    <result column="Content" jdbcType="VARCHAR" property="content" />
+    <result column="Country" jdbcType="VARCHAR" property="country" />
+    <result column="Province" jdbcType="VARCHAR" property="province" />
+    <result column="City" jdbcType="VARCHAR" property="city" />
+    <result column="WxOpenId" jdbcType="VARCHAR" property="wxopenid" />
+    <result column="subscribe" jdbcType="VARCHAR" property="subscribe" />
+    <result column="subscribe_time" jdbcType="VARCHAR" property="subscribeTime" />
+    <result column="IsDel" jdbcType="SMALLINT" property="isdel" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="AddTime" jdbcType="TIMESTAMP" property="addtime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    UserId, UserName, RealName, Avatar, NickName, headimgurl, Email, PhoneNumber, Sex, 
+    Profession, JobTitle, WorkUnit, Content, Country, Province, City, WxOpenId, subscribe, 
+    subscribe_time, IsDel, UpdateTime, AddTime
+  </sql>
+  <select id="selectByExample" parameterType="com.fans.pojo.MpUserinfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mp_userinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mp_userinfo
+    where UserId = #{userid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from mp_userinfo
+    where UserId = #{userid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fans.pojo.MpUserinfoExample">
+    delete from mp_userinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fans.pojo.MpUserinfo">
+    insert into mp_userinfo (UserId, UserName, RealName, 
+      Avatar, NickName, headimgurl, 
+      Email, PhoneNumber, Sex, 
+      Profession, JobTitle, WorkUnit, 
+      Content, Country, Province, 
+      City, WxOpenId, subscribe, 
+      subscribe_time, IsDel, UpdateTime, 
+      AddTime)
+    values (#{userid,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, 
+      #{avatar,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{headimgurl,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{phonenumber,jdbcType=VARCHAR}, #{sex,jdbcType=SMALLINT}, 
+      #{profession,jdbcType=VARCHAR}, #{jobtitle,jdbcType=VARCHAR}, #{workunit,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{wxopenid,jdbcType=VARCHAR}, #{subscribe,jdbcType=VARCHAR}, 
+      #{subscribeTime,jdbcType=VARCHAR}, #{isdel,jdbcType=SMALLINT}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{addtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fans.pojo.MpUserinfo">
+    insert into mp_userinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        UserId,
+      </if>
+      <if test="username != null">
+        UserName,
+      </if>
+      <if test="realname != null">
+        RealName,
+      </if>
+      <if test="avatar != null">
+        Avatar,
+      </if>
+      <if test="nickname != null">
+        NickName,
+      </if>
+      <if test="headimgurl != null">
+        headimgurl,
+      </if>
+      <if test="email != null">
+        Email,
+      </if>
+      <if test="phonenumber != null">
+        PhoneNumber,
+      </if>
+      <if test="sex != null">
+        Sex,
+      </if>
+      <if test="profession != null">
+        Profession,
+      </if>
+      <if test="jobtitle != null">
+        JobTitle,
+      </if>
+      <if test="workunit != null">
+        WorkUnit,
+      </if>
+      <if test="content != null">
+        Content,
+      </if>
+      <if test="country != null">
+        Country,
+      </if>
+      <if test="province != null">
+        Province,
+      </if>
+      <if test="city != null">
+        City,
+      </if>
+      <if test="wxopenid != null">
+        WxOpenId,
+      </if>
+      <if test="subscribe != null">
+        subscribe,
+      </if>
+      <if test="subscribeTime != null">
+        subscribe_time,
+      </if>
+      <if test="isdel != null">
+        IsDel,
+      </if>
+      <if test="updatetime != null">
+        UpdateTime,
+      </if>
+      <if test="addtime != null">
+        AddTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null">
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null">
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null">
+        #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenumber != null">
+        #{phonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=SMALLINT},
+      </if>
+      <if test="profession != null">
+        #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="jobtitle != null">
+        #{jobtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="workunit != null">
+        #{workunit,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="wxopenid != null">
+        #{wxopenid,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribe != null">
+        #{subscribe,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeTime != null">
+        #{subscribeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isdel != null">
+        #{isdel,jdbcType=SMALLINT},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fans.pojo.MpUserinfoExample" resultType="java.lang.Long">
+    select count(*) from mp_userinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update mp_userinfo
+    <set>
+      <if test="record.userid != null">
+        UserId = #{record.userid,jdbcType=BIGINT},
+      </if>
+      <if test="record.username != null">
+        UserName = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realname != null">
+        RealName = #{record.realname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.avatar != null">
+        Avatar = #{record.avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickname != null">
+        NickName = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headimgurl != null">
+        headimgurl = #{record.headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        Email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phonenumber != null">
+        PhoneNumber = #{record.phonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null">
+        Sex = #{record.sex,jdbcType=SMALLINT},
+      </if>
+      <if test="record.profession != null">
+        Profession = #{record.profession,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobtitle != null">
+        JobTitle = #{record.jobtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workunit != null">
+        WorkUnit = #{record.workunit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null">
+        Content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.country != null">
+        Country = #{record.country,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null">
+        Province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null">
+        City = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxopenid != null">
+        WxOpenId = #{record.wxopenid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subscribe != null">
+        subscribe = #{record.subscribe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subscribeTime != null">
+        subscribe_time = #{record.subscribeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isdel != null">
+        IsDel = #{record.isdel,jdbcType=SMALLINT},
+      </if>
+      <if test="record.updatetime != null">
+        UpdateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.addtime != null">
+        AddTime = #{record.addtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update mp_userinfo
+    set UserId = #{record.userid,jdbcType=BIGINT},
+      UserName = #{record.username,jdbcType=VARCHAR},
+      RealName = #{record.realname,jdbcType=VARCHAR},
+      Avatar = #{record.avatar,jdbcType=VARCHAR},
+      NickName = #{record.nickname,jdbcType=VARCHAR},
+      headimgurl = #{record.headimgurl,jdbcType=VARCHAR},
+      Email = #{record.email,jdbcType=VARCHAR},
+      PhoneNumber = #{record.phonenumber,jdbcType=VARCHAR},
+      Sex = #{record.sex,jdbcType=SMALLINT},
+      Profession = #{record.profession,jdbcType=VARCHAR},
+      JobTitle = #{record.jobtitle,jdbcType=VARCHAR},
+      WorkUnit = #{record.workunit,jdbcType=VARCHAR},
+      Content = #{record.content,jdbcType=VARCHAR},
+      Country = #{record.country,jdbcType=VARCHAR},
+      Province = #{record.province,jdbcType=VARCHAR},
+      City = #{record.city,jdbcType=VARCHAR},
+      WxOpenId = #{record.wxopenid,jdbcType=VARCHAR},
+      subscribe = #{record.subscribe,jdbcType=VARCHAR},
+      subscribe_time = #{record.subscribeTime,jdbcType=VARCHAR},
+      IsDel = #{record.isdel,jdbcType=SMALLINT},
+      UpdateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      AddTime = #{record.addtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fans.pojo.MpUserinfo">
+    update mp_userinfo
+    <set>
+      <if test="username != null">
+        UserName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null">
+        RealName = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null">
+        Avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        NickName = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="headimgurl != null">
+        headimgurl = #{headimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        Email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenumber != null">
+        PhoneNumber = #{phonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        Sex = #{sex,jdbcType=SMALLINT},
+      </if>
+      <if test="profession != null">
+        Profession = #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="jobtitle != null">
+        JobTitle = #{jobtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="workunit != null">
+        WorkUnit = #{workunit,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        Content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        Country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        Province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        City = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="wxopenid != null">
+        WxOpenId = #{wxopenid,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribe != null">
+        subscribe = #{subscribe,jdbcType=VARCHAR},
+      </if>
+      <if test="subscribeTime != null">
+        subscribe_time = #{subscribeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isdel != null">
+        IsDel = #{isdel,jdbcType=SMALLINT},
+      </if>
+      <if test="updatetime != null">
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addtime != null">
+        AddTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where UserId = #{userid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fans.pojo.MpUserinfo">
+    update mp_userinfo
+    set UserName = #{username,jdbcType=VARCHAR},
+      RealName = #{realname,jdbcType=VARCHAR},
+      Avatar = #{avatar,jdbcType=VARCHAR},
+      NickName = #{nickname,jdbcType=VARCHAR},
+      headimgurl = #{headimgurl,jdbcType=VARCHAR},
+      Email = #{email,jdbcType=VARCHAR},
+      PhoneNumber = #{phonenumber,jdbcType=VARCHAR},
+      Sex = #{sex,jdbcType=SMALLINT},
+      Profession = #{profession,jdbcType=VARCHAR},
+      JobTitle = #{jobtitle,jdbcType=VARCHAR},
+      WorkUnit = #{workunit,jdbcType=VARCHAR},
+      Content = #{content,jdbcType=VARCHAR},
+      Country = #{country,jdbcType=VARCHAR},
+      Province = #{province,jdbcType=VARCHAR},
+      City = #{city,jdbcType=VARCHAR},
+      WxOpenId = #{wxopenid,jdbcType=VARCHAR},
+      subscribe = #{subscribe,jdbcType=VARCHAR},
+      subscribe_time = #{subscribeTime,jdbcType=VARCHAR},
+      IsDel = #{isdel,jdbcType=SMALLINT},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      AddTime = #{addtime,jdbcType=TIMESTAMP}
+    where UserId = #{userid,jdbcType=BIGINT}
+  </update>
+</mapper>

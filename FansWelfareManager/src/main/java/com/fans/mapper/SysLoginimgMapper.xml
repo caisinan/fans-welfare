@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fans.mapper.SysLoginimgMapper">
+  <resultMap id="BaseResultMap" type="com.fans.pojo.SysLoginimg">
+    <id column="LOGINIMG_ID" jdbcType="VARCHAR" property="loginimgId" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="FILEPATH" jdbcType="VARCHAR" property="filepath" />
+    <result column="TYPE" jdbcType="INTEGER" property="type" />
+    <result column="FORDER" jdbcType="INTEGER" property="forder" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    LOGINIMG_ID, NAME, FILEPATH, TYPE, FORDER
+  </sql>
+  <select id="selectByExample" parameterType="com.fans.pojo.SysLoginimgExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_loginimg
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_loginimg
+    where LOGINIMG_ID = #{loginimgId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_loginimg
+    where LOGINIMG_ID = #{loginimgId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fans.pojo.SysLoginimgExample">
+    delete from sys_loginimg
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fans.pojo.SysLoginimg">
+    insert into sys_loginimg (LOGINIMG_ID, NAME, FILEPATH, 
+      TYPE, FORDER)
+    values (#{loginimgId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{filepath,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{forder,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fans.pojo.SysLoginimg">
+    insert into sys_loginimg
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="loginimgId != null">
+        LOGINIMG_ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="filepath != null">
+        FILEPATH,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+      <if test="forder != null">
+        FORDER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="loginimgId != null">
+        #{loginimgId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="filepath != null">
+        #{filepath,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="forder != null">
+        #{forder,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fans.pojo.SysLoginimgExample" resultType="java.lang.Long">
+    select count(*) from sys_loginimg
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sys_loginimg
+    <set>
+      <if test="record.loginimgId != null">
+        LOGINIMG_ID = #{record.loginimgId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filepath != null">
+        FILEPATH = #{record.filepath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        TYPE = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.forder != null">
+        FORDER = #{record.forder,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sys_loginimg
+    set LOGINIMG_ID = #{record.loginimgId,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      FILEPATH = #{record.filepath,jdbcType=VARCHAR},
+      TYPE = #{record.type,jdbcType=INTEGER},
+      FORDER = #{record.forder,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fans.pojo.SysLoginimg">
+    update sys_loginimg
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="filepath != null">
+        FILEPATH = #{filepath,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        TYPE = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="forder != null">
+        FORDER = #{forder,jdbcType=INTEGER},
+      </if>
+    </set>
+    where LOGINIMG_ID = #{loginimgId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fans.pojo.SysLoginimg">
+    update sys_loginimg
+    set NAME = #{name,jdbcType=VARCHAR},
+      FILEPATH = #{filepath,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=INTEGER},
+      FORDER = #{forder,jdbcType=INTEGER}
+    where LOGINIMG_ID = #{loginimgId,jdbcType=VARCHAR}
+  </update>
+</mapper>

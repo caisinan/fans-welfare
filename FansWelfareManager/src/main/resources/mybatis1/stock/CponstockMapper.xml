@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CponstockMapper">
+
+    <!--表名 -->
+    <sql id="tableName">
+		CPONSTOCK
+	</sql>
+
+    <!-- 字段 -->
+    <sql id="Field">
+		COUPONID,	
+		COUPONTYPE,	
+		COUPONCODE,	
+		COUPONNAME,	
+		COUPONPRICE,	
+		PREPNUMCOUPON,	
+		PREPMONEYCOUPON,	
+		REALNUMCOUPON,	
+		REALMONEYCOUPON,	
+		VALIDTIMESTART,	
+		VALIDTIMEEND,	
+		HASCARDKEY,	
+		ISVALID,	
+		ACTIVID,	
+		UPLOADID
+	</sql>
+
+    <!-- 字段值 -->
+    <sql id="FieldValue">
+		#{COUPONID},	
+		#{COUPONTYPE},	
+		#{COUPONCODE},	
+		#{COUPONNAME},	
+		#{COUPONPRICE},	
+		#{PREPNUMCOUPON},	
+		#{PREPMONEYCOUPON},	
+		#{REALNUMCOUPON},	
+		#{REALMONEYCOUPON},	
+		#{VALIDTIMESTART},	
+		#{VALIDTIMEEND},	
+		#{HASCARDKEY},	
+		#{ISVALID},	
+		#{ACTIVID},	
+		#{UPLOADID}
+	</sql>
+
+    <!-- 字段值 -->
+    <sql id="FieldValue1">
+        #{item.COUPONID},
+        #{item.COUPONTYPE},
+        #{item.COUPONCODE},
+        #{item.COUPONNAME},
+        #{item.COUPONPRICE},
+        #{item.PREPNUMCOUPON},
+        #{item.PREPMONEYCOUPON},
+        #{item.REALNUMCOUPON},
+        #{item.REALMONEYCOUPON},
+        #{item.VALIDTIMESTART},
+        #{item.VALIDTIMEEND},
+        #{item.HASCARDKEY},
+        #{item.ISVALID},
+        #{item.ACTIVID},
+        #{item.UPLOADID}
+    </sql>
+
+    <!-- 新增-->
+    <insert id="save" parameterType="pd">
+        insert into
+        <include refid="tableName"></include>
+        (
+        <include refid="Field"></include>
+        ) values (
+        <include refid="FieldValue"></include>
+        )
+    </insert>
+
+    <!-- 删除-->
+    <delete id="delete" parameterType="pd">
+        delete from
+        <include refid="tableName"></include>
+        where
+        COUPONID = #{COUPONID}
+    </delete>
+
+    <!-- 修改 -->
+    <update id="edit" parameterType="pd">
+        update
+        <include refid="tableName"></include>
+        set
+        COUPONID = #{COUPONID},
+        COUPONTYPE = #{COUPONTYPE},
+        COUPONCODE = #{COUPONCODE},
+        COUPONNAME = #{COUPONNAME},
+        COUPONPRICE = #{COUPONPRICE},
+        PREPNUMCOUPON = #{PREPNUMCOUPON},
+        PREPMONEYCOUPON = #{PREPMONEYCOUPON},
+        REALNUMCOUPON = #{REALNUMCOUPON},
+        REALMONEYCOUPON = #{REALMONEYCOUPON},
+        VALIDTIMESTART = #{VALIDTIMESTART},
+        VALIDTIMEEND = #{VALIDTIMEEND},
+        HASCARDKEY = #{HASCARDKEY},
+        ISVALID = #{ISVALID},
+        ACTIVID = #{ACTIVID},
+        UPLOADID = #{UPLOADID}
+        where
+        COUPONID = #{COUPONID}
+    </update>
+
+    <!-- 通过ID获取数据 -->
+    <select id="findById" parameterType="pd" resultType="pd">
+        select
+        <include refid="Field"></include>
+        from
+        <include refid="tableName"></include>
+        where
+        COUPONID = #{COUPONID}
+    </select>
+
+    <!-- 列表 -->
+    <select id="datalistPage" parameterType="page" resultType="pd">
+        select
+        <include refid="Field"></include>
+        from
+        <include refid="tableName"></include>
+        where 1=1
+        <if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
+            and
+            (
+            COUPONCODE LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+            or
+            COUPONNAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+            )
+        </if>
+
+    </select>
+
+    <!-- 列表(全部) -->
+    <select id="listAll" parameterType="pd" resultType="pd">
+        select
+        <include refid="Field"></include>
+        from
+        <include refid="tableName"></include>
+    </select>
+
+    <!-- 批量删除 -->
+    <delete id="deleteAll" parameterType="String">
+        delete from
+        <include refid="tableName"></include>
+        where
+        COUPONID in
+        <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <!-- 批量新增-->
+    <insert id="batchSave" parameterType="java.util.List">
+        insert into
+        <include refid="tableName"></include>
+        (
+        <include refid="Field"></include>
+        ) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (<include refid="FieldValue1"></include>)
+        </foreach>
+    </insert>
+
+    <!-- 根据上传表ID查询福利券类别列表(全部) -->
+    <select id="getCponstocklistByUploadId" parameterType="pd" resultType="pd">
+        select
+        <include refid="Field"></include>
+        from
+        <include refid="tableName"></include>
+        where
+        UPLOADID = #{UPLOADID}
+        <if test="COUPONTYPE!= null and COUPONTYPE != ''">
+            <if test="COUPONTYPE!= 0">
+                and
+                COUPONTYPE = #{COUPONTYPE}
+            </if>
+        </if>
+    </select>
+</mapper>

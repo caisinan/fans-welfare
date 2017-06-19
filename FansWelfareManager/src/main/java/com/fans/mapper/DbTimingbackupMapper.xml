@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fans.mapper.DbTimingbackupMapper">
+  <resultMap id="BaseResultMap" type="com.fans.pojo.DbTimingbackup">
+    <id column="TIMINGBACKUP_ID" jdbcType="VARCHAR" property="timingbackupId" />
+    <result column="JOBNAME" jdbcType="VARCHAR" property="jobname" />
+    <result column="CREATE_TIME" jdbcType="VARCHAR" property="createTime" />
+    <result column="TABLENAME" jdbcType="VARCHAR" property="tablename" />
+    <result column="STATUS" jdbcType="INTEGER" property="status" />
+    <result column="FHTIME" jdbcType="VARCHAR" property="fhtime" />
+    <result column="TIMEEXPLAIN" jdbcType="VARCHAR" property="timeexplain" />
+    <result column="BZ" jdbcType="VARCHAR" property="bz" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TIMINGBACKUP_ID, JOBNAME, CREATE_TIME, TABLENAME, STATUS, FHTIME, TIMEEXPLAIN, BZ
+  </sql>
+  <select id="selectByExample" parameterType="com.fans.pojo.DbTimingbackupExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from db_timingbackup
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from db_timingbackup
+    where TIMINGBACKUP_ID = #{timingbackupId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from db_timingbackup
+    where TIMINGBACKUP_ID = #{timingbackupId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fans.pojo.DbTimingbackupExample">
+    delete from db_timingbackup
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fans.pojo.DbTimingbackup">
+    insert into db_timingbackup (TIMINGBACKUP_ID, JOBNAME, CREATE_TIME, 
+      TABLENAME, STATUS, FHTIME, 
+      TIMEEXPLAIN, BZ)
+    values (#{timingbackupId,jdbcType=VARCHAR}, #{jobname,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{tablename,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{fhtime,jdbcType=VARCHAR}, 
+      #{timeexplain,jdbcType=VARCHAR}, #{bz,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fans.pojo.DbTimingbackup">
+    insert into db_timingbackup
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="timingbackupId != null">
+        TIMINGBACKUP_ID,
+      </if>
+      <if test="jobname != null">
+        JOBNAME,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="tablename != null">
+        TABLENAME,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="fhtime != null">
+        FHTIME,
+      </if>
+      <if test="timeexplain != null">
+        TIMEEXPLAIN,
+      </if>
+      <if test="bz != null">
+        BZ,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="timingbackupId != null">
+        #{timingbackupId,jdbcType=VARCHAR},
+      </if>
+      <if test="jobname != null">
+        #{jobname,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="tablename != null">
+        #{tablename,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="fhtime != null">
+        #{fhtime,jdbcType=VARCHAR},
+      </if>
+      <if test="timeexplain != null">
+        #{timeexplain,jdbcType=VARCHAR},
+      </if>
+      <if test="bz != null">
+        #{bz,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fans.pojo.DbTimingbackupExample" resultType="java.lang.Long">
+    select count(*) from db_timingbackup
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update db_timingbackup
+    <set>
+      <if test="record.timingbackupId != null">
+        TIMINGBACKUP_ID = #{record.timingbackupId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobname != null">
+        JOBNAME = #{record.jobname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tablename != null">
+        TABLENAME = #{record.tablename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.fhtime != null">
+        FHTIME = #{record.fhtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeexplain != null">
+        TIMEEXPLAIN = #{record.timeexplain,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bz != null">
+        BZ = #{record.bz,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update db_timingbackup
+    set TIMINGBACKUP_ID = #{record.timingbackupId,jdbcType=VARCHAR},
+      JOBNAME = #{record.jobname,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=VARCHAR},
+      TABLENAME = #{record.tablename,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=INTEGER},
+      FHTIME = #{record.fhtime,jdbcType=VARCHAR},
+      TIMEEXPLAIN = #{record.timeexplain,jdbcType=VARCHAR},
+      BZ = #{record.bz,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fans.pojo.DbTimingbackup">
+    update db_timingbackup
+    <set>
+      <if test="jobname != null">
+        JOBNAME = #{jobname,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="tablename != null">
+        TABLENAME = #{tablename,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="fhtime != null">
+        FHTIME = #{fhtime,jdbcType=VARCHAR},
+      </if>
+      <if test="timeexplain != null">
+        TIMEEXPLAIN = #{timeexplain,jdbcType=VARCHAR},
+      </if>
+      <if test="bz != null">
+        BZ = #{bz,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TIMINGBACKUP_ID = #{timingbackupId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fans.pojo.DbTimingbackup">
+    update db_timingbackup
+    set JOBNAME = #{jobname,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      TABLENAME = #{tablename,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=INTEGER},
+      FHTIME = #{fhtime,jdbcType=VARCHAR},
+      TIMEEXPLAIN = #{timeexplain,jdbcType=VARCHAR},
+      BZ = #{bz,jdbcType=VARCHAR}
+    where TIMINGBACKUP_ID = #{timingbackupId,jdbcType=VARCHAR}
+  </update>
+</mapper>

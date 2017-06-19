@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fans.mapper.ImagetextMapper">
+  <resultMap id="BaseResultMap" type="com.fans.pojo.Imagetext">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="buttonType" jdbcType="VARCHAR" property="buttontype" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="picUrl" jdbcType="VARCHAR" property="picurl" />
+    <result column="zhaiYao" jdbcType="VARCHAR" property="zhaiyao" />
+    <result column="sourceLink" jdbcType="VARCHAR" property="sourcelink" />
+    <result column="createOn" jdbcType="TIMESTAMP" property="createon" />
+    <result column="date" jdbcType="DATE" property="date" />
+    <result column="weekOfYear" jdbcType="INTEGER" property="weekofyear" />
+    <result column="twUrl" jdbcType="VARCHAR" property="twurl" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.fans.pojo.Imagetext">
+    <result column="bodyText" jdbcType="LONGVARCHAR" property="bodytext" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, buttonType, title, author, picUrl, zhaiYao, sourceLink, createOn, date, weekOfYear, 
+    twUrl
+  </sql>
+  <sql id="Blob_Column_List">
+    bodyText
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.fans.pojo.ImagetextExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from imagetext
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.fans.pojo.ImagetextExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from imagetext
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from imagetext
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from imagetext
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fans.pojo.ImagetextExample">
+    delete from imagetext
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fans.pojo.Imagetext">
+    insert into imagetext (id, buttonType, title, 
+      author, picUrl, zhaiYao, 
+      sourceLink, createOn, date, 
+      weekOfYear, twUrl, bodyText
+      )
+    values (#{id,jdbcType=BIGINT}, #{buttontype,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{author,jdbcType=VARCHAR}, #{picurl,jdbcType=VARCHAR}, #{zhaiyao,jdbcType=VARCHAR}, 
+      #{sourcelink,jdbcType=VARCHAR}, #{createon,jdbcType=TIMESTAMP}, #{date,jdbcType=DATE}, 
+      #{weekofyear,jdbcType=INTEGER}, #{twurl,jdbcType=VARCHAR}, #{bodytext,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fans.pojo.Imagetext">
+    insert into imagetext
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="buttontype != null">
+        buttonType,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="picurl != null">
+        picUrl,
+      </if>
+      <if test="zhaiyao != null">
+        zhaiYao,
+      </if>
+      <if test="sourcelink != null">
+        sourceLink,
+      </if>
+      <if test="createon != null">
+        createOn,
+      </if>
+      <if test="date != null">
+        date,
+      </if>
+      <if test="weekofyear != null">
+        weekOfYear,
+      </if>
+      <if test="twurl != null">
+        twUrl,
+      </if>
+      <if test="bodytext != null">
+        bodyText,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="buttontype != null">
+        #{buttontype,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="picurl != null">
+        #{picurl,jdbcType=VARCHAR},
+      </if>
+      <if test="zhaiyao != null">
+        #{zhaiyao,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcelink != null">
+        #{sourcelink,jdbcType=VARCHAR},
+      </if>
+      <if test="createon != null">
+        #{createon,jdbcType=TIMESTAMP},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=DATE},
+      </if>
+      <if test="weekofyear != null">
+        #{weekofyear,jdbcType=INTEGER},
+      </if>
+      <if test="twurl != null">
+        #{twurl,jdbcType=VARCHAR},
+      </if>
+      <if test="bodytext != null">
+        #{bodytext,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fans.pojo.ImagetextExample" resultType="java.lang.Long">
+    select count(*) from imagetext
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update imagetext
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.buttontype != null">
+        buttonType = #{record.buttontype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.author != null">
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picurl != null">
+        picUrl = #{record.picurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zhaiyao != null">
+        zhaiYao = #{record.zhaiyao,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourcelink != null">
+        sourceLink = #{record.sourcelink,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createon != null">
+        createOn = #{record.createon,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.date != null">
+        date = #{record.date,jdbcType=DATE},
+      </if>
+      <if test="record.weekofyear != null">
+        weekOfYear = #{record.weekofyear,jdbcType=INTEGER},
+      </if>
+      <if test="record.twurl != null">
+        twUrl = #{record.twurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bodytext != null">
+        bodyText = #{record.bodytext,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update imagetext
+    set id = #{record.id,jdbcType=BIGINT},
+      buttonType = #{record.buttontype,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      picUrl = #{record.picurl,jdbcType=VARCHAR},
+      zhaiYao = #{record.zhaiyao,jdbcType=VARCHAR},
+      sourceLink = #{record.sourcelink,jdbcType=VARCHAR},
+      createOn = #{record.createon,jdbcType=TIMESTAMP},
+      date = #{record.date,jdbcType=DATE},
+      weekOfYear = #{record.weekofyear,jdbcType=INTEGER},
+      twUrl = #{record.twurl,jdbcType=VARCHAR},
+      bodyText = #{record.bodytext,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update imagetext
+    set id = #{record.id,jdbcType=BIGINT},
+      buttonType = #{record.buttontype,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      picUrl = #{record.picurl,jdbcType=VARCHAR},
+      zhaiYao = #{record.zhaiyao,jdbcType=VARCHAR},
+      sourceLink = #{record.sourcelink,jdbcType=VARCHAR},
+      createOn = #{record.createon,jdbcType=TIMESTAMP},
+      date = #{record.date,jdbcType=DATE},
+      weekOfYear = #{record.weekofyear,jdbcType=INTEGER},
+      twUrl = #{record.twurl,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fans.pojo.Imagetext">
+    update imagetext
+    <set>
+      <if test="buttontype != null">
+        buttonType = #{buttontype,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="picurl != null">
+        picUrl = #{picurl,jdbcType=VARCHAR},
+      </if>
+      <if test="zhaiyao != null">
+        zhaiYao = #{zhaiyao,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcelink != null">
+        sourceLink = #{sourcelink,jdbcType=VARCHAR},
+      </if>
+      <if test="createon != null">
+        createOn = #{createon,jdbcType=TIMESTAMP},
+      </if>
+      <if test="date != null">
+        date = #{date,jdbcType=DATE},
+      </if>
+      <if test="weekofyear != null">
+        weekOfYear = #{weekofyear,jdbcType=INTEGER},
+      </if>
+      <if test="twurl != null">
+        twUrl = #{twurl,jdbcType=VARCHAR},
+      </if>
+      <if test="bodytext != null">
+        bodyText = #{bodytext,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.fans.pojo.Imagetext">
+    update imagetext
+    set buttonType = #{buttontype,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      picUrl = #{picurl,jdbcType=VARCHAR},
+      zhaiYao = #{zhaiyao,jdbcType=VARCHAR},
+      sourceLink = #{sourcelink,jdbcType=VARCHAR},
+      createOn = #{createon,jdbcType=TIMESTAMP},
+      date = #{date,jdbcType=DATE},
+      weekOfYear = #{weekofyear,jdbcType=INTEGER},
+      twUrl = #{twurl,jdbcType=VARCHAR},
+      bodyText = #{bodytext,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fans.pojo.Imagetext">
+    update imagetext
+    set buttonType = #{buttontype,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      picUrl = #{picurl,jdbcType=VARCHAR},
+      zhaiYao = #{zhaiyao,jdbcType=VARCHAR},
+      sourceLink = #{sourcelink,jdbcType=VARCHAR},
+      createOn = #{createon,jdbcType=TIMESTAMP},
+      date = #{date,jdbcType=DATE},
+      weekOfYear = #{weekofyear,jdbcType=INTEGER},
+      twUrl = #{twurl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <resultMap id="BaseResultMap" type="com.fans.pojo.Imagetext">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="buttonType" jdbcType="VARCHAR" property="buttontype" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="picUrl" jdbcType="VARCHAR" property="picurl" />
+    <result column="zhaiYao" jdbcType="VARCHAR" property="zhaiyao" />
+    <result column="sourceLink" jdbcType="VARCHAR" property="sourcelink" />
+    <result column="createOn" jdbcType="TIMESTAMP" property="createon" />
+    <result column="date" jdbcType="DATE" property="date" />
+    <result column="weekOfYear" jdbcType="INTEGER" property="weekofyear" />
+    <result column="twUrl" jdbcType="VARCHAR" property="twurl" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.fans.pojo.Imagetext">
+    <result column="bodyText" jdbcType="LONGVARCHAR" property="bodytext" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, buttonType, title, author, picUrl, zhaiYao, sourceLink, createOn, date, weekOfYear, 
+    twUrl
+  </sql>
+  <sql id="Blob_Column_List">
+    bodyText
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.fans.pojo.ImagetextExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from imagetext
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.fans.pojo.ImagetextExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from imagetext
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from imagetext
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from imagetext
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fans.pojo.ImagetextExample">
+    delete from imagetext
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fans.pojo.Imagetext">
+    insert into imagetext (id, buttonType, title, 
+      author, picUrl, zhaiYao, 
+      sourceLink, createOn, date, 
+      weekOfYear, twUrl, bodyText
+      )
+    values (#{id,jdbcType=BIGINT}, #{buttontype,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{author,jdbcType=VARCHAR}, #{picurl,jdbcType=VARCHAR}, #{zhaiyao,jdbcType=VARCHAR}, 
+      #{sourcelink,jdbcType=VARCHAR}, #{createon,jdbcType=TIMESTAMP}, #{date,jdbcType=DATE}, 
+      #{weekofyear,jdbcType=INTEGER}, #{twurl,jdbcType=VARCHAR}, #{bodytext,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fans.pojo.Imagetext">
+    insert into imagetext
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="buttontype != null">
+        buttonType,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="picurl != null">
+        picUrl,
+      </if>
+      <if test="zhaiyao != null">
+        zhaiYao,
+      </if>
+      <if test="sourcelink != null">
+        sourceLink,
+      </if>
+      <if test="createon != null">
+        createOn,
+      </if>
+      <if test="date != null">
+        date,
+      </if>
+      <if test="weekofyear != null">
+        weekOfYear,
+      </if>
+      <if test="twurl != null">
+        twUrl,
+      </if>
+      <if test="bodytext != null">
+        bodyText,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="buttontype != null">
+        #{buttontype,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="picurl != null">
+        #{picurl,jdbcType=VARCHAR},
+      </if>
+      <if test="zhaiyao != null">
+        #{zhaiyao,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcelink != null">
+        #{sourcelink,jdbcType=VARCHAR},
+      </if>
+      <if test="createon != null">
+        #{createon,jdbcType=TIMESTAMP},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=DATE},
+      </if>
+      <if test="weekofyear != null">
+        #{weekofyear,jdbcType=INTEGER},
+      </if>
+      <if test="twurl != null">
+        #{twurl,jdbcType=VARCHAR},
+      </if>
+      <if test="bodytext != null">
+        #{bodytext,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fans.pojo.ImagetextExample" resultType="java.lang.Long">
+    select count(*) from imagetext
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update imagetext
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.buttontype != null">
+        buttonType = #{record.buttontype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.author != null">
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picurl != null">
+        picUrl = #{record.picurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zhaiyao != null">
+        zhaiYao = #{record.zhaiyao,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourcelink != null">
+        sourceLink = #{record.sourcelink,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createon != null">
+        createOn = #{record.createon,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.date != null">
+        date = #{record.date,jdbcType=DATE},
+      </if>
+      <if test="record.weekofyear != null">
+        weekOfYear = #{record.weekofyear,jdbcType=INTEGER},
+      </if>
+      <if test="record.twurl != null">
+        twUrl = #{record.twurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bodytext != null">
+        bodyText = #{record.bodytext,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update imagetext
+    set id = #{record.id,jdbcType=BIGINT},
+      buttonType = #{record.buttontype,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      picUrl = #{record.picurl,jdbcType=VARCHAR},
+      zhaiYao = #{record.zhaiyao,jdbcType=VARCHAR},
+      sourceLink = #{record.sourcelink,jdbcType=VARCHAR},
+      createOn = #{record.createon,jdbcType=TIMESTAMP},
+      date = #{record.date,jdbcType=DATE},
+      weekOfYear = #{record.weekofyear,jdbcType=INTEGER},
+      twUrl = #{record.twurl,jdbcType=VARCHAR},
+      bodyText = #{record.bodytext,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update imagetext
+    set id = #{record.id,jdbcType=BIGINT},
+      buttonType = #{record.buttontype,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      picUrl = #{record.picurl,jdbcType=VARCHAR},
+      zhaiYao = #{record.zhaiyao,jdbcType=VARCHAR},
+      sourceLink = #{record.sourcelink,jdbcType=VARCHAR},
+      createOn = #{record.createon,jdbcType=TIMESTAMP},
+      date = #{record.date,jdbcType=DATE},
+      weekOfYear = #{record.weekofyear,jdbcType=INTEGER},
+      twUrl = #{record.twurl,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fans.pojo.Imagetext">
+    update imagetext
+    <set>
+      <if test="buttontype != null">
+        buttonType = #{buttontype,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="picurl != null">
+        picUrl = #{picurl,jdbcType=VARCHAR},
+      </if>
+      <if test="zhaiyao != null">
+        zhaiYao = #{zhaiyao,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcelink != null">
+        sourceLink = #{sourcelink,jdbcType=VARCHAR},
+      </if>
+      <if test="createon != null">
+        createOn = #{createon,jdbcType=TIMESTAMP},
+      </if>
+      <if test="date != null">
+        date = #{date,jdbcType=DATE},
+      </if>
+      <if test="weekofyear != null">
+        weekOfYear = #{weekofyear,jdbcType=INTEGER},
+      </if>
+      <if test="twurl != null">
+        twUrl = #{twurl,jdbcType=VARCHAR},
+      </if>
+      <if test="bodytext != null">
+        bodyText = #{bodytext,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.fans.pojo.Imagetext">
+    update imagetext
+    set buttonType = #{buttontype,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      picUrl = #{picurl,jdbcType=VARCHAR},
+      zhaiYao = #{zhaiyao,jdbcType=VARCHAR},
+      sourceLink = #{sourcelink,jdbcType=VARCHAR},
+      createOn = #{createon,jdbcType=TIMESTAMP},
+      date = #{date,jdbcType=DATE},
+      weekOfYear = #{weekofyear,jdbcType=INTEGER},
+      twUrl = #{twurl,jdbcType=VARCHAR},
+      bodyText = #{bodytext,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fans.pojo.Imagetext">
+    update imagetext
+    set buttonType = #{buttontype,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      picUrl = #{picurl,jdbcType=VARCHAR},
+      zhaiYao = #{zhaiyao,jdbcType=VARCHAR},
+      sourceLink = #{sourcelink,jdbcType=VARCHAR},
+      createOn = #{createon,jdbcType=TIMESTAMP},
+      date = #{date,jdbcType=DATE},
+      weekOfYear = #{weekofyear,jdbcType=INTEGER},
+      twUrl = #{twurl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

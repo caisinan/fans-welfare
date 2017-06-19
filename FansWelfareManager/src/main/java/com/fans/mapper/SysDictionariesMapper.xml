@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fans.mapper.SysDictionariesMapper">
+  <resultMap id="BaseResultMap" type="com.fans.pojo.SysDictionaries">
+    <id column="DICTIONARIES_ID" jdbcType="VARCHAR" property="dictionariesId" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="NAME_EN" jdbcType="VARCHAR" property="nameEn" />
+    <result column="BIANMA" jdbcType="VARCHAR" property="bianma" />
+    <result column="ORDER_BY" jdbcType="INTEGER" property="orderBy" />
+    <result column="PARENT_ID" jdbcType="VARCHAR" property="parentId" />
+    <result column="BZ" jdbcType="VARCHAR" property="bz" />
+    <result column="TBSNAME" jdbcType="VARCHAR" property="tbsname" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    DICTIONARIES_ID, NAME, NAME_EN, BIANMA, ORDER_BY, PARENT_ID, BZ, TBSNAME
+  </sql>
+  <select id="selectByExample" parameterType="com.fans.pojo.SysDictionariesExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_dictionaries
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_dictionaries
+    where DICTIONARIES_ID = #{dictionariesId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_dictionaries
+    where DICTIONARIES_ID = #{dictionariesId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fans.pojo.SysDictionariesExample">
+    delete from sys_dictionaries
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fans.pojo.SysDictionaries">
+    insert into sys_dictionaries (DICTIONARIES_ID, NAME, NAME_EN, 
+      BIANMA, ORDER_BY, PARENT_ID, 
+      BZ, TBSNAME)
+    values (#{dictionariesId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{nameEn,jdbcType=VARCHAR}, 
+      #{bianma,jdbcType=VARCHAR}, #{orderBy,jdbcType=INTEGER}, #{parentId,jdbcType=VARCHAR}, 
+      #{bz,jdbcType=VARCHAR}, #{tbsname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fans.pojo.SysDictionaries">
+    insert into sys_dictionaries
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dictionariesId != null">
+        DICTIONARIES_ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="nameEn != null">
+        NAME_EN,
+      </if>
+      <if test="bianma != null">
+        BIANMA,
+      </if>
+      <if test="orderBy != null">
+        ORDER_BY,
+      </if>
+      <if test="parentId != null">
+        PARENT_ID,
+      </if>
+      <if test="bz != null">
+        BZ,
+      </if>
+      <if test="tbsname != null">
+        TBSNAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dictionariesId != null">
+        #{dictionariesId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="nameEn != null">
+        #{nameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="bianma != null">
+        #{bianma,jdbcType=VARCHAR},
+      </if>
+      <if test="orderBy != null">
+        #{orderBy,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="bz != null">
+        #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="tbsname != null">
+        #{tbsname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fans.pojo.SysDictionariesExample" resultType="java.lang.Long">
+    select count(*) from sys_dictionaries
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sys_dictionaries
+    <set>
+      <if test="record.dictionariesId != null">
+        DICTIONARIES_ID = #{record.dictionariesId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nameEn != null">
+        NAME_EN = #{record.nameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bianma != null">
+        BIANMA = #{record.bianma,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderBy != null">
+        ORDER_BY = #{record.orderBy,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentId != null">
+        PARENT_ID = #{record.parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bz != null">
+        BZ = #{record.bz,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tbsname != null">
+        TBSNAME = #{record.tbsname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sys_dictionaries
+    set DICTIONARIES_ID = #{record.dictionariesId,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      NAME_EN = #{record.nameEn,jdbcType=VARCHAR},
+      BIANMA = #{record.bianma,jdbcType=VARCHAR},
+      ORDER_BY = #{record.orderBy,jdbcType=INTEGER},
+      PARENT_ID = #{record.parentId,jdbcType=VARCHAR},
+      BZ = #{record.bz,jdbcType=VARCHAR},
+      TBSNAME = #{record.tbsname,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fans.pojo.SysDictionaries">
+    update sys_dictionaries
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="nameEn != null">
+        NAME_EN = #{nameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="bianma != null">
+        BIANMA = #{bianma,jdbcType=VARCHAR},
+      </if>
+      <if test="orderBy != null">
+        ORDER_BY = #{orderBy,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="bz != null">
+        BZ = #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="tbsname != null">
+        TBSNAME = #{tbsname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DICTIONARIES_ID = #{dictionariesId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fans.pojo.SysDictionaries">
+    update sys_dictionaries
+    set NAME = #{name,jdbcType=VARCHAR},
+      NAME_EN = #{nameEn,jdbcType=VARCHAR},
+      BIANMA = #{bianma,jdbcType=VARCHAR},
+      ORDER_BY = #{orderBy,jdbcType=INTEGER},
+      PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      BZ = #{bz,jdbcType=VARCHAR},
+      TBSNAME = #{tbsname,jdbcType=VARCHAR}
+    where DICTIONARIES_ID = #{dictionariesId,jdbcType=VARCHAR}
+  </update>
+</mapper>
