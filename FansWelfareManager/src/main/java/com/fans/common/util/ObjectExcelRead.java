@@ -145,7 +145,18 @@ public class ObjectExcelRead {
 						}
 						varpd.put("var"+j, cellValue);
 					}
-					singleShellList.add(varpd);
+					if(singleShellList.size() > 1){
+						PageData varpdBefore = (PageData)singleShellList.get(singleShellList.size()-1);
+						if(varpdBefore.getString("var0").equals(varpd.getString("var0"))){ // 如过当前行数据福利券类型和上一条不同，重新创建行数据集合
+							singleShellList.add(varpd);
+						} else {
+							allShellList.add(singleShellList);
+							singleShellList = new ArrayList<Object>();
+							singleShellList.add(varpd);
+						}
+					}else {
+						singleShellList.add(varpd);
+					}
 				}
 				allShellList.add(singleShellList);
 			}

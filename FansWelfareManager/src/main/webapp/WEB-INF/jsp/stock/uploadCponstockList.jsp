@@ -10,6 +10,9 @@
       + request.getServerName() + ":" + request.getServerPort()
       + path + "/";
 %>
+<%
+  String couponType = request.getParameter("COUPONTYPE");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,48 +48,47 @@
               <tr>
                 <td>
                   <div class="row">
-
                     <div class="col-lg-12 col-sm-12 col-xs-12">
                       <div class="tabbable">
                         <ul class="nav nav-tabs" id="myTab">
-                          <li class="active">
-                            <a data-toggle="tab" onclick="tabCponType('${upload.UPLOADID }', 0);">
+                          <li class="<%="0".equals(couponType) ? "active" : "tab-red" %>">
+                            <a data-toggle="tab" onclick="tabCponType(this, '${upload.UPLOADID }', 0);">
                               全部卡券
                             </a>
                           </li>
 
-                          <li class="tab-red">
-                            <a data-toggle="tab" onclick="tabCponType('${upload.UPLOADID }', 1);">
+                          <li class="<%="1".equals(couponType) ? "active" : "tab-red" %>">
+                            <a data-toggle="tab" onclick="tabCponType(this, '${upload.UPLOADID }', 1);">
                               中国知网会员卡
                             </a>
                           </li>
 
-                          <li class="tab-red">
-                            <a data-toggle="tab" onclick="tabCponType('${upload.UPLOADID }', 2);">
+                          <li class="<%="2".equals(couponType) ? "active" : "tab-red" %>">
+                            <a data-toggle="tab" onclick="tabCponType(this, '${upload.UPLOADID }', 2);">
                               吾喜杂志阅读券
                             </a>
                           </li>
 
-                          <li class="tab-red">
-                            <a data-toggle="tab" onclick="tabCponType('${upload.UPLOADID }', 3);">
+                          <li class="<%="3".equals(couponType) ? "active" : "tab-red" %>">
+                            <a data-toggle="tab" onclick="tabCponType(this, '${upload.UPLOADID }', 3);">
                               CNKI学问福利券
                             </a>
                           </li>
 
-                          <li class="tab-red">
-                            <a data-toggle="tab" onclick="tabCponType('${upload.UPLOADID }', 4);">
+                          <li class="<%="4".equals(couponType) ? "active" : "tab-red" %>">
+                            <a data-toggle="tab" onclick="tabCponType(this, '${upload.UPLOADID }', 4);">
                               知识超市福利券
                             </a>
                           </li>
 
-                          <li class="tab-red">
-                            <a data-toggle="tab" onclick="tabCponType('${upload.UPLOADID }', 5);">
+                          <li class="<%="5".equals(couponType) ? "active" : "tab-red" %>">
+                            <a data-toggle="tab" onclick="tabCponType(this, '${upload.UPLOADID }', 5);">
                               大成编客福利券
                             </a>
                           </li>
 
-                          <li class="tab-red">
-                            <a data-toggle="tab" onclick="tabCponType('${upload.UPLOADID }', 6);">
+                          <li class="<%="6".equals(couponType) ? "active" : "tab-red" %>">
+                            <a data-toggle="tab" onclick="tabCponType(this, '${upload.UPLOADID }', 6);">
                               手机知网福利券
                             </a>
                           </li>
@@ -129,13 +131,12 @@
                                     <c:forEach items="${cponstocklist}" var="cponstock" varStatus="vs">
                                       <tr>
                                         <td class='center' style="width: 30px;">${vs.index+1}</td>
-                                        <td class="center">${cponstock.COUPONNAME }</td>
-                                        <td class="center">${cponstock.COUPONPRICE }</td>
+                                        <td class="center"><a onclick="uploadCponstockDetail('${upload.UPLOADID }', '${cponstock.COUPONID }');">${cponstock.COUPONNAME }</a></td>
+                                        <td class="center"><fmt:formatNumber value="${cponstock.COUPONPRICE }" pattern="￥"></fmt:formatNumber></td>
                                         <td class="center">${cponstock.PREPNUMCOUPON }</td>
                                         <td class="center">${cponstock.REALNUMCOUPON }</td>
                                         <td class="center">${cponstock.PREPNUMCOUPON - cponstock.REALNUMCOUPON}</td>
-                                        <td class="center"><fmt:formatDate value="${cponstock.VALIDTIMEEND }"
-                                                                           pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                                        <td class="center"><fmt:formatDate value="${cponstock.VALIDTIMEEND }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                                         <td class="center">
                                           <div class="progress progress-striped active">
                                             <div class="progress-bar progress-bar-success"
@@ -150,10 +151,7 @@
                                           </div>
                                         </td>
                                         <td class="center">
-                                          <a class="btn btn-xs btn-info"
-                                             onclick="uploadCponstockDetail('${upload.UPLOADID }', '${cponstock.COUPONID }');">
-                                            详情
-                                          </a>
+                                          <a class="btn btn-xs btn-info" onclick="goEditActivity('${upload.UPLOADID }', '${cponstock.COUPONID }');">投放</a>
                                         </td>
                                       </tr>
 
@@ -270,7 +268,7 @@
   });
 
   // 上切换福利券页签
-  function tabCponType(uploadId, cponType) {
+  function tabCponType(even, uploadId, cponType) {
     window.location = '<%=basePath%>stock/uploadCponstockList.do?UPLOADID=' + uploadId + '&COUPONTYPE=' + cponType;
   }
 
@@ -278,6 +276,31 @@
   function uploadCponstockDetail(uploadId, couponId) {
     window.location = '<%=basePath%>stock/uploadCardList.do?UPLOADID=' + uploadId + '&COUPONID=' + couponId;
   }
+
+  // 上传卡密详情
+  function createActivity(uploadId, couponId) {
+    window.location = '<%=basePath%>stock/uploadCardList.do?UPLOADID=' + uploadId + '&COUPONID=' + couponId;
+  }
+
+  //修改
+  function goEditActivity(uploadId, couponId){
+    top.jzts();
+    var diag = new top.Dialog();
+    diag.Drag=true;
+    diag.Title ="资料";
+    diag.URL = '<%=basePath%>stock/goEditActivity.do?CARDID='+cardId;
+    diag.Width = 800;
+    diag.Height = 600;
+    diag.CancelEvent = function(){ //关闭事件
+      if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+        nextPage(${page.currentPage});
+      }
+      diag.close();
+    };
+    diag.show();
+  }
+
+
 
 </script>
 </html>

@@ -33,31 +33,24 @@
 
             <!-- 检索  -->
             <form action="/stock/uploadCardList" method="post" name="cardForm" id="cardForm">
+              <input type="hidden" name="UPLOADID" value="${pd.UPLOADID }"> <!-- 上传表id  -->
+              <input type="hidden" name="COUPONID" value="${pd.COUPONID }"><!-- 福利券类别id  -->
+              <input type="hidden" name="CARDSTATE" value="${pd.CARDSTATE }"><!-- 福利券状态  -->
               <table style="margin-top:5px;">
                 <tr>
-                  <td>
-                    <div class="nav-search">
-									<span class="input-icon">
-										<input class="nav-search-input" autocomplete="off" id="nav-search-input" type="text" name="keywords" value="${pd.keywords }" placeholder="这里输入关键词" />
-										<i class="ace-icon fa fa-search nav-search-icon"></i>
-									</span>
-                    </div>
-                  </td>
-                  <td style="padding-left:2px;"><input class="span10 date-picker" name="lastLoginStart" id="lastLoginStart"  value="${pd.lastLoginStart}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="开始日期" title="最近登录开始"/></td>
-                  <td style="padding-left:2px;"><input class="span10 date-picker" name="lastLoginEnd" name="lastLoginEnd"  value="${pd.lastLoginEnd}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="最近登录结束"/></td>
                   <td style="vertical-align:top;padding-left:2px;">
-                    <select class="chosen-select form-control" name="ROLE_ID" id="role_id" data-placeholder="请选择角色" style="vertical-align:top;width: 120px;">
+                    <label>福利券状态：</label>
+                    <select class="chosen-select form-control" name="CARDSTATE" id="cardState" data-placeholder="请选择状态" style="vertical-align:top;width: 120px;">
                       <option value=""></option>
                       <option value="">全部</option>
-                      <c:forEach items="${roleList}" var="role">
-                        <option value="${role.ROLE_ID }" <c:if test="${pd.ROLE_ID==role.ROLE_ID}">selected</c:if>>${role.ROLE_NAME }</option>
-                      </c:forEach>
+                      <option value="0" <c:if test="${pd.CARDSTATE=='0'}">selected</c:if>>已导入</option>
+                      <option value="1" <c:if test="${pd.CARDSTATE=='1'}">selected</c:if>>已投放</option>
+                      <option value="2" <c:if test="${pd.CARDSTATE=='2'}">selected</c:if>>已发放</option>
                     </select>
                   </td>
                   <c:if test="${QX.cha == 1 }">
+                    <td style="vertical-align:top;padding-left:2px;">
                     <td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="searchs();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
-                    <c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
-                    <c:if test="${QX.FromExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="fromExcel();" title="从EXCEL导入"><i id="nav-search-icon" class="ace-icon fa fa-cloud-upload bigger-110 nav-search-icon blue"></i></a></td></c:if>
                   </c:if>
                 </tr>
               </table>
@@ -67,19 +60,12 @@
                 <thead>
                 <tr>
                   <th class="center" style="width:50px;">序号</th>
-                  <th class="center">编号</th>
                   <th class="center">名称</th>
-                  <th class="center">价格</th>
-                  <th class="center">状态</th>
+                  <th class="center">面值</th>
                   <th class="center">卡号</th>
-                  <th class="center">密码</th>
+                  <th class="center">有效期</th>
                   <th class="center">导入时间</th>
-                  <th class="center">有效期起</th>
-                  <th class="center">有效期止</th>
-                  <th class="center">发放时间</th>
-                  <th class="center">激活时间</th>
-                  <th class="center">是否有效</th>
-                  <th class="center">是否激活</th>
+                  <th class="center">状态</th>
                   <th class="center">操作</th>
                 </tr>
                 </thead>
@@ -94,31 +80,31 @@
 
                         <tr>
                           <td class='center' style="width: 30px;">${vs.index+1}</td>
-                          <td class="center">${card.CARDID }</td>
                           <td class="center">${card.COUPONNAME }</td>
-                          <td class="center">${card.COUPONPRICE }</td>
-                          <td class="center">${card.CARDSTATE }</td>
+                          <td class="center"><fmt:formatNumber value="${card.COUPONPRICE }" pattern="￥"></fmt:formatNumber></td>
                           <td class="center">${card.CARDCODE }</td>
-                          <td class="center">${card.CARDPWD }</td>
-                          <td class="center"><fmt:formatDate value="${card.CREATETIME }" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
-                          <td class="center"><fmt:formatDate value="${card.VALIDTIMESTART }" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
-                          <td class="center"><fmt:formatDate value="${card.VALIDTIMEEND }" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
-                          <td class="center"><fmt:formatDate value="${card.CARDGRANTTIME }" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
-                          <td class="center"><fmt:formatDate value="${card.CARDVALIDTIME }" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
-                          <td class="center">${card.ISVALID }</td>
-                          <td class="center">${card.ISACTIVE }</td>
+                          <td class="center"><fmt:formatDate value="${card.VALIDTIMESTART }" pattern="yyyy/MM/dd"/> - <fmt:formatDate value="${card.VALIDTIMEEND }" pattern="yyyy/MM/dd"/> </td>
+                          <td class="center"><fmt:formatDate value="${card.CREATETIME }" pattern="yyyy/MM/dd"/> </td>
+                          <td class="center">
+                            <c:if test="${card.CARDSTATE == '0'}">已导入</c:if>
+                            <c:if test="${card.CARDSTATE == '1'}">已投放</c:if>
+                            <c:if test="${card.CARDSTATE == '2'}">已发放</c:if>
+                            <c:if test="${card.CARDSTATE == '3'}">已充值</c:if>
+                            <c:if test="${card.CARDSTATE == '4'}">已过期</c:if>
+                            <c:if test="${card.CARDSTATE == '5'}">回收站</c:if>
+                          </td>
                           <td class="center">
                             <c:if test="${QX.edit != 1 && QX.del != 1 }">
                               <span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
                             </c:if>
                             <div class="hidden-sm hidden-xs btn-group">
                               <c:if test="${QX.edit == 1 }">
-                                <a class="btn btn-xs btn-success" title="编辑" onclick="editUser('${user.USER_ID}');">
+                                <a class="btn btn-xs btn-success" title="编辑" onclick="editCard('${card.CARDID}');">
                                   <i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i>
                                 </a>
                               </c:if>
                               <c:if test="${QX.del == 1 }">
-                                <a class="btn btn-xs btn-danger" onclick="delUser('${user.USER_ID }','${user.USERNAME }');">
+                                <a class="btn btn-xs btn-danger" onclick="delCard('${user.USER_ID }','${card.CARDID }');">
                                   <i class="ace-icon fa fa-trash-o bigger-120" title="删除"></i>
                                 </a>
                               </c:if>
@@ -208,12 +194,12 @@
   }
 
   //修改
-  function editUser(user_id){
+  function editCard(cardId){
     top.jzts();
     var diag = new top.Dialog();
     diag.Drag=true;
     diag.Title ="资料";
-    diag.URL = '<%=basePath%>user/goEditU.do?USER_ID='+user_id;
+    diag.URL = '<%=basePath%>stock/goEditCard.do?CARDID='+cardId;
     diag.Width = 469;
     diag.Height = 510;
     diag.CancelEvent = function(){ //关闭事件
@@ -258,6 +244,28 @@
 
   });
 
+	/**
+   * 卡密状态
+   * @param state
+   */
+  function cardState(state){
+    switch (state){
+      case "0":
+        return "已导入";
+      case "1":
+        return "已投放";
+      case "2":
+        return "已发放";
+      case "3":
+        return "已充值";
+      case "4":
+        return "已过期";
+      case "5":
+        return "回收站";
+      default:
+        return "已导入";
+    }
+  }
 
 </script>
 </html>

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="fans-welfare-manager:war">
+    <output-path>$PROJECT_DIR$/FansWelfareManager/target</output-path>
+    <root id="archive" name="fans-welfare-manager.war">
+      <element id="artifact" artifact-name="fans-welfare-manager:war exploded" />
+    </root>
+  </artifact>
+</component>

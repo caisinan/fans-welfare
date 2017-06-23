@@ -267,7 +267,7 @@
 
   // 上传记录详情
   function uploadDetail(uploadId) {
-    window.location = '<%=basePath%>stock/uploadCponstockList.do?UPLOADID=' + uploadId;
+    window.location = '<%=basePath%>stock/uploadCponstockList.do?UPLOADID=' + uploadId + '&COUPONTYPE=0';
   }
 
 </script>

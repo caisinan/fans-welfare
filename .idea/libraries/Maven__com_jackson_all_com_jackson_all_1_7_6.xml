@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.jackson-all:com.jackson-all:1.7.6">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/jackson-all/com.jackson-all/1.7.6/com.jackson-all-1.7.6.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/jackson-all/com.jackson-all/1.7.6/com.jackson-all-1.7.6-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/jackson-all/com.jackson-all/1.7.6/com.jackson-all-1.7.6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
