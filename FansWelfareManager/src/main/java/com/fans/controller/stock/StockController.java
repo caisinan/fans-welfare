@@ -18,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -152,17 +151,17 @@ public class StockController extends BaseController {
                 for (int j = 0; j < childList.size(); j++) { // 遍历当前shell中的所有记录数
                     PageData card = new PageData();
                     card.put("CARDID", this.get32UUID());
-                    card.put("COUPONCODE", childList.get(i).getString("var0")); //福利券类型
-                    card.put("COUPONNAME", childList.get(i).getString("sheetName")); //福利券名称
-                    double cardPrice = Double.valueOf(childList.get(i).getString("var1"));
+                    card.put("COUPONCODE", childList.get(j).getString("var0")); //福利券类型
+                    card.put("COUPONNAME", childList.get(j).getString("sheetName")); //福利券名称
+                    double cardPrice = Double.valueOf(childList.get(j).getString("var1"));
                     prepMoney += cardPrice;
                     card.put("COUPONPRICE", cardPrice); //福利券面值
                     card.put("CARDSTATE", 0); //卡密状态（0-对应福利券库存；1-对应活动；2-已发放给用户（未充值）；3-已充值；4-已过期；5-回收站）
-                    card.put("CARDCODE", childList.get(i).getString("var2")); //卡号
-                    card.put("CARDPWD", childList.get(i).getString("var3"));// 密码
+                    card.put("CARDCODE", childList.get(j).getString("var2")); //卡号
+                    card.put("CARDPWD", childList.get(j).getString("var3"));// 密码
                     card.put("CREATETIME", new Date());// 创建时间
-                    card.put("VALIDTIMESTART", childList.get(i).getString("var4")); //福利券有效期起
-                    card.put("VALIDTIMEEND", childList.get(i).getString("var5"));//福利券有效期止
+                    card.put("VALIDTIMESTART", childList.get(j).getString("var4")); //福利券有效期起
+                    card.put("VALIDTIMEEND", childList.get(j).getString("var5"));//福利券有效期止
                     card.put("CARDGRANTTIME", null); //卡密发放时间
                     card.put("CARDVALIDTIME", null);// 卡密激活时间
                     card.put("ISVALID", 1); //是否有效（0-无效；1-有效）
@@ -294,6 +293,48 @@ public class StockController extends BaseController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
         String noLimit = "CNKI" + sdf.format(new Date());
         return noLimit;
+    }
+
+    /**去修改用户页面(系统用户列表修改)
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value="/goEditCard")
+    public ModelAndView goEditCard() throws Exception{
+        if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //校验权限
+        ModelAndView mv = this.getModelAndView();
+        PageData pd = new PageData();
+        pd = this.getPageData();
+        pd.put("ROLE_ID", "1");
+        List<Role> roleList = roleService.listAllRolesByPId(pd);	//列出所有系统用户角色
+        mv.addObject("fx", "user");
+        pd = cardService.findById(pd);								//根据ID读取
+        mv.setViewName("stock/editCard");
+        mv.addObject("msg", "editU");
+        mv.addObject("pd", pd);
+        mv.addObject("roleList", roleList);
+        return mv;
+    }
+
+    /**投放卡密，更新活动信息
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value="/goEditActivity")
+    public ModelAndView goEditActivity() throws Exception{
+        if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //校验权限
+        ModelAndView mv = this.getModelAndView();
+        PageData pd = new PageData();
+        pd = this.getPageData();
+        pd.put("ROLE_ID", "1");
+        List<Role> roleList = roleService.listAllRolesByPId(pd);	//列出所有系统用户角色
+        mv.addObject("fx", "user");
+        pd = cardService.findById(pd);								//根据ID读取
+        mv.setViewName("stock/editActivity");
+        mv.addObject("msg", "editU");
+        mv.addObject("pd", pd);
+        mv.addObject("roleList", roleList);
+        return mv;
     }
 
 
