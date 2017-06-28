@@ -97,7 +97,7 @@ public class StockController extends BaseController {
     }
 
     /**
-     * 从EXCEL导入到数据库
+     * 从EXCEL导入到数据库  2017-06-28
      *
      * @param file
      * @return
